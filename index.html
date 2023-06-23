@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escribe lo que oyes</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Listening Game</title>
 </head>
+
 <body>
-    <h1>Escribe lo que oyes</h1>
-    <div>
-        Audio
-    </div>
-    <input type="text" name="" id="">
+    
+    <form>
+        <h1>Escribe lo que oyes</h1>
+        <h3>Tienes <span></span> vidas</h3>
+        <div class="divAudio">
+            <audio id='audio' controls autoplay src="./data/audio/1.ogg">
+                Tu navegador no soporta la etiqueta de audio.
+            </audio>
+        </div>
+        <input type="text" id="input-user">
+        <button id='boton-enviar' type="reset">Enviar</button>
+        <p id='resultado'></p>
+    </form>
 </body>
-</html>l
+<script src="./script.js"></script>
+</html>
