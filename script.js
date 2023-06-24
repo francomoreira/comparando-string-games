@@ -1,18 +1,28 @@
 const data = [
     {
-        preg : './data/img/bike.jpg',
-        resp : "bike"
+        img : './data/img/arise.jpeg',
+        infinitive : "arise",
+        simplePast: "arose",
+        pastParticiple: "arisen",
+        spanish: "surgir",
     },
     {
-        preg : './data/img/awake.jpg',
-        resp : "awake"
-    }
+        img : './data/img/awake.jpg',
+        infinitive : "awake",
+        simplePast: "awoke",
+        pastParticiple: "awoken",
+        spanish: "despierta",
+    },
+    {
+        img : './data/img/beat.jpg',
+        infinitive : "beat",
+        simplePast: "beat",
+        pastParticiple: "beaten",
+        spanish: "golpear",
+    },
 ]
 
-// para obtener el src de la etiqueta audio, al final no la use, pero que placer encontrarla.
-//let audioSrc = document.getElementById('audio').attributes[3].value;
-
-// el div que contiene el audio
+// el div que contiene la img
 const divImagen = document.querySelector('.divImagen');
 
 // el boton enviar y asociar el click a la funcion comparar
@@ -22,6 +32,7 @@ boton.addEventListener('click', comparar);
 // para poner el resultado en el dom
 const respDOM = document.getElementById('resultado');
 const verboDOM = document.getElementById('verbo');
+
 // contero de vidas 
 const spanVidas = document.querySelector('span');
 
@@ -29,19 +40,24 @@ let dato;
 let vidas = 3; 
 spanVidas.innerText = vidas;
 
+function opcionAleatoria() {
+    let i = Math.floor(Math.random() * data.length)
+    dato = data[i]; // obtengo un dato random de mi objeto Data
+}
+
 
 function inyectarHtml(i) {
-    divImagen.innerHTML = `<img src="${i.preg}" alt="bike">`
-    verboDOM.innerHTML = `${i.resp}`
+    divImagen.innerHTML = `<img src="${i.img}" alt="bike">`
+    verboDOM.innerHTML = `${i.infinitive}`
     console.log(i);
 }
 
 function comparar() {
   const respuestaUsuario = String(document.getElementById('input-user').value);
-  if (respuestaUsuario == dato.resp) {
+  if (respuestaUsuario == dato.infinitive) {
     isTrue();
   } else {
-    isFalse(dato.resp);
+    isFalse(dato.infinitive);
   }
 }
 
@@ -66,7 +82,7 @@ function playerIsDead() {
 }
 
 function start () {
-    dato = data[Math.floor(Math.random() * 2)]; // obtengo un dato random de mi objeto Data
+    opcionAleatoria();
     inyectarHtml(dato); // agrego al html el audio correcto con la data obtenida..
     // ... quedo esperando que Usuario apriete el boton, para comparar()
 }
