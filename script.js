@@ -1,79 +1,93 @@
 const data = [
     {
-        img : './data/img/arise.jpeg',
+        img: './data/img/arise.jpeg',
         infinitive : "arise",
-        simplePast: "arose",
-        pastParticiple: "arisen",
         spanish: "surgir",
+        verbsIrregulars : [
+            "arose",
+            "arisen",
+        ]
     },
     {
-        img : './data/img/awake.jpg',
-        infinitive : "awake",
-        simplePast: "awoke",
-        pastParticiple: "awoken",
+        img: './data/img/awake.jpg',
+        infinitive: "awake",
         spanish: "despierta",
+        verbsIrregulars: [
+            "awoke",
+            "awoken",
+        ]
     },
     {
-        img : './data/img/beat.jpg',
-        infinitive : "beat",
-        simplePast: "beat",
-        pastParticiple: "beaten",
+        img: './data/img/beat.jpg',
+        infinitive: "beat",
         spanish: "golpear",
-    },
+        verbsIrregulars: [
+            "beat",
+            "beaten",
+        ]
+    }
 ]
 
-// el div que contiene la img
+// div contenedor de la img
 const divImagen = document.querySelector('.divImagen');
 
 // el boton enviar y asociar el click a la funcion comparar
 const boton = document.getElementById('boton-enviar');
 boton.addEventListener('click', comparar);
 
-// para poner el resultado en el dom
-const respDOM = document.getElementById('resultado');
-const verboDOM = document.getElementById('verbo');
+// Textos inyectados en html desde js
+const verboDOM = document.getElementById('verbo'); // para la consigna
+const respDOM = document.getElementById('resultado'); // para los resultados
+const spanVidas = document.querySelector('span'); // contero de vidas
 
-// contero de vidas 
-const spanVidas = document.querySelector('span');
 
-let dato;
 let vidas = 3; 
-spanVidas.innerText = vidas;
+let dato = '';
+let verboIrregular = '';
 
-function opcionAleatoria() {
-    let i = Math.floor(Math.random() * data.length)
-    dato = data[i]; // obtengo un dato random de mi objeto Data
+function opcionAleatoriaPara(a) { // obtengo un elemento random de mi array
+    let i = Math.floor(Math.random() * a.length)
+    return a[i]; 
 }
 
+function inyectarHtml(i, verboIrregularRandom) {
+    // insertando imagen
+    divImagen.innerHTML = `<img src="${i.img}" alt="img ${i.infinitive}">`
 
-function inyectarHtml(i) {
-    divImagen.innerHTML = `<img src="${i.img}" alt="bike">`
-    verboDOM.innerHTML = `${i.infinitive}`
-    console.log(i);
+    // insertando textos
+    if (verboIrregularRandom == i.verbsIrregulars[0]) {
+        // SIMPLE PAST
+        verboDOM.innerHTML = `Escribe el Simple Past del verbo ${i.infinitive}`
+    } else if (verboIrregularRandom == i.verbsIrregulars[1]) {
+        // past participle
+        verboDOM.innerHTML = `Escribe el Past Participle del verbo ${i.infinitive}`
+    }
+    spanVidas.innerText = vidas;
+    //console.log(i);
 }
 
-function comparar() {
-  const respuestaUsuario = String(document.getElementById('input-user').value);
-  if (respuestaUsuario == dato.infinitive) {
-    isTrue();
-  } else {
-    isFalse(dato.infinitive);
-  }
+function comparar() { // con click, compara el input del player con el dato random
+    const respuestaUsuario = String(document.getElementById('input-user').value);
+    if (respuestaUsuario == verboIrregular) {
+      isTrue();
+    } else {
+      isFalse(verboIrregular);
+    }
 }
 
-function isTrue() {
+function isTrue() { // si la comparacion es true, cae aca
     respDOM.innerHTML = "Correcto!";  
     return playerIsDead();
 };
 
-function isFalse(res) {
+function isFalse(res) { // si la comparacion es false, cae aca
     respDOM.innerHTML = `Lo siento, la respuesta era: <br> ${res}`;
     vidas = vidas - 1;
     spanVidas.innerText = vidas;
     return playerIsDead();
 };
 
-function playerIsDead() {
+function playerIsDead() { // chekeo si el player esta vivo,
     if (vidas <= 0) {
         alert('game over');
     } else {
@@ -81,10 +95,14 @@ function playerIsDead() {
     }
 }
 
-function start () {
-    opcionAleatoria();
-    inyectarHtml(dato); // agrego al html el audio correcto con la data obtenida..
-    // ... quedo esperando que Usuario apriete el boton, para comparar()
+function run () {
+    dato = opcionAleatoriaPara(data);
+    verboIrregular = opcionAleatoriaPara(dato.verbsIrregulars);
+    inyectarHtml(dato, verboIrregular); // agrego al html con la data obtenida..
+    // ... quedo esperando que Usuario apriete el boton, envie su palabra para comparar()
+    
+    console.log(verboIrregular)
+    console.log(dato.verbsIrregulars)
 }
 
-start();
+run();
