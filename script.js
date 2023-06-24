@@ -91,7 +91,7 @@ function playerIsDead() { // chekeo si el player esta vivo,
     if (vidas <= 0) {
         alert('game over');
     } else {
-        start();
+        run();
     }
 }
 
