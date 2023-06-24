@@ -1,19 +1,19 @@
 const data = [
     {
-        preg : './data/audio/1.ogg',
-        resp : 'Hello. How are you?'
+        preg : './data/img/bike.jpg',
+        resp : "bike"
     },
     {
-        preg : './data/audio/2.ogg',
-        resp : `Hey, Kathy. I'm well. And you?`
+        preg : './data/img/awake.jpg',
+        resp : "awake"
     }
 ]
 
 // para obtener el src de la etiqueta audio, al final no la use, pero que placer encontrarla.
-let audioSrc = document.getElementById('audio').attributes[3].value;
+//let audioSrc = document.getElementById('audio').attributes[3].value;
 
 // el div que contiene el audio
-const divAudio = document.querySelector('.divAudio');
+const divImagen = document.querySelector('.divImagen');
 
 // el boton enviar y asociar el click a la funcion comparar
 const boton = document.getElementById('boton-enviar');
@@ -21,6 +21,7 @@ boton.addEventListener('click', comparar);
 
 // para poner el resultado en el dom
 const respDOM = document.getElementById('resultado');
+const verboDOM = document.getElementById('verbo');
 // contero de vidas 
 const spanVidas = document.querySelector('span');
 
@@ -30,9 +31,8 @@ spanVidas.innerText = vidas;
 
 
 function inyectarHtml(i) {
-    divAudio.innerHTML = `  <audio id='audio' controls autoplay src="${i}">
-                                Tu navegador no soporta la etiqueta de audio.
-                            </audio>`
+    divImagen.innerHTML = `<img src="${i.preg}" alt="bike">`
+    verboDOM.innerHTML = `${i.resp}`
     console.log(i);
 }
 
@@ -51,7 +51,7 @@ function isTrue() {
 };
 
 function isFalse(res) {
-    respDOM.innerHTML = `Lo siento incorrecto la respuesta era: <br> ${res}`;
+    respDOM.innerHTML = `Lo siento, la respuesta era: <br> ${res}`;
     vidas = vidas - 1;
     spanVidas.innerText = vidas;
     return playerIsDead();
@@ -67,9 +67,8 @@ function playerIsDead() {
 
 function start () {
     dato = data[Math.floor(Math.random() * 2)]; // obtengo un dato random de mi objeto Data
-    inyectarHtml(dato.preg); // agrego al html el audio correcto con la data obtenida..
+    inyectarHtml(dato); // agrego al html el audio correcto con la data obtenida..
     // ... quedo esperando que Usuario apriete el boton, para comparar()
 }
-
 
 start();
