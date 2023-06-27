@@ -106,10 +106,7 @@ function run () {
     dato = opcionAleatoriaPara(data);
     verboIrregular = opcionAleatoriaPara(dato.verbsIrregulars);
     inyectarHtml(dato, verboIrregular); 
-    // ... quedo esperando que Usuario apriete el boton, envie su palabra para comparar()
-    
-    console.log(verboIrregular)
-    console.log(dato.verbsIrregulars)
+    // ... quedo esperando que el player juegue para comparar()
 }
 
 run();
