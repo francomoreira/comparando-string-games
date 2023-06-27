@@ -35,6 +35,13 @@ const divImagen = document.querySelector('.divImagen');
 const boton = document.getElementById('boton-enviar');
 boton.addEventListener('click', comparar);
 
+//detectar presion boton enter
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        comparar();
+    }
+});
+
 // Textos inyectados en html desde js
 const verboDOM = document.getElementById('verbo'); // para la consigna
 const respDOM = document.getElementById('resultado'); // para los resultados
