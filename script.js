@@ -28,14 +28,11 @@ const data = [
     }
 ]
 
-// div contenedor de la img
-const divImagen = document.querySelector('.divImagen');
-
-// el boton enviar y asociar el click a la funcion comparar
+// boton enviar y llama a la funcion comparar()
 const boton = document.getElementById('boton-enviar');
 boton.addEventListener('click', comparar);
 
-//detectar presion boton enter
+//detectar presion boton enter y llama a comparar()
 document.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         comparar();
@@ -47,17 +44,20 @@ const verboDOM = document.getElementById('verbo'); // para la consigna
 const respDOM = document.getElementById('resultado'); // para los resultados
 const spanVidas = document.querySelector('span'); // contero de vidas
 
+// div contenedor de la img
+const divImagen = document.querySelector('.divImagen');
 
 let vidas = 3; 
 let dato = '';
 let verboIrregular = '';
+
 
 function opcionAleatoriaPara(a) { // obtengo un elemento random de mi array
     let i = Math.floor(Math.random() * a.length)
     return a[i]; 
 }
 
-function inyectarHtml(i, verboIrregularRandom) {
+function inyectarHtml(i, verboIrregularRandom) { // agrego al html la data obtenida..
     // insertando imagen
     divImagen.innerHTML = `<img src="${i.img}" alt="img ${i.infinitive}">`
 
@@ -73,7 +73,7 @@ function inyectarHtml(i, verboIrregularRandom) {
     //console.log(i);
 }
 
-function comparar() { // con click, compara el input del player con el dato random
+function comparar() { // compara el input del player con el dato random
     const respuestaUsuario = String(document.getElementById('input-user').value);
     if (respuestaUsuario == verboIrregular) {
       isTrue();
@@ -94,7 +94,7 @@ function isFalse(res) { // si la comparacion es false, cae aca
     return playerIsDead();
 };
 
-function playerIsDead() { // chekeo si el player esta vivo,
+function playerIsDead() { // chekeo si el player esta vivo, llamo a comparar() 
     if (vidas <= 0) {
         alert('game over');
     } else {
@@ -105,7 +105,7 @@ function playerIsDead() { // chekeo si el player esta vivo,
 function run () {
     dato = opcionAleatoriaPara(data);
     verboIrregular = opcionAleatoriaPara(dato.verbsIrregulars);
-    inyectarHtml(dato, verboIrregular); // agrego al html con la data obtenida..
+    inyectarHtml(dato, verboIrregular); 
     // ... quedo esperando que Usuario apriete el boton, envie su palabra para comparar()
     
     console.log(verboIrregular)
